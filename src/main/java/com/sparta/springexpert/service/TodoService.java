@@ -40,7 +40,9 @@ public class TodoService {
         return todos.map(todo -> new TodoDetailResponseDto(
                 todo.getId(),
                 todo.getTodoTitle(),
-                todo.getTodoContent()
+                todo.getTodoContent(),
+//                todo.getCreatedAt(),
+//                todo.getModifiedAt()
         ));
 
 //        Todo todo = todoRepository.findById(todoId).orElseThrow(()->new NullPointerException("조회한 id가 없습니다."));
