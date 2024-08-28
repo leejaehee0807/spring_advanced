@@ -1,9 +1,9 @@
-package com.sparta.springexpert.dto;
+package com.sparta.springexpert.dto.todo.request;
 
 import lombok.Getter;
 
 @Getter
-public class TodoSaveRequestDto {
+public class TodoDetailRequestDto {
     private String todoTitle;
     private String todoContent;
 }

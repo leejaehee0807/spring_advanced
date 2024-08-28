@@ -1,6 +1,10 @@
 package com.sparta.springexpert.service;
 
-import com.sparta.springexpert.dto.*;
+import com.sparta.springexpert.dto.todo.request.TodoSaveRequestDto;
+import com.sparta.springexpert.dto.todo.request.TodoUpdateRequestDto;
+import com.sparta.springexpert.dto.todo.response.TodoDetailResponseDto;
+import com.sparta.springexpert.dto.todo.response.TodoSaveResponseDto;
+import com.sparta.springexpert.dto.todo.response.TodoUpdateResponseDto;
 import com.sparta.springexpert.entity.Todo;
 import com.sparta.springexpert.repository.TodoRepository;
 import lombok.RequiredArgsConstructor;
