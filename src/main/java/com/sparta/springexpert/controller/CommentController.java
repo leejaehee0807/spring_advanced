@@ -8,6 +8,7 @@ import com.sparta.springexpert.dto.comment.response.CommentSimpleResponseDto;
 import com.sparta.springexpert.dto.comment.response.CommentUpdateResponseDto;
 import com.sparta.springexpert.service.CommentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,23 +20,23 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping("/comments")
-    public CommentSaveResponseDto saveComment(@RequestBody CommentSaveRequestDto commentSaveRequestDto){
-        return commentService.saveComment(commentSaveRequestDto);
+    public ResponseEntity<CommentSaveResponseDto> saveComment(@RequestBody CommentSaveRequestDto commentSaveRequestDto){
+        return ResponseEntity.ok(commentService.saveComment(commentSaveRequestDto));
     }
 
     @GetMapping("/comments")
-    public List<CommentSimpleResponseDto> getComments(){
-        return commentService.getComments();
+    public ResponseEntity<List<CommentSimpleResponseDto>> getComments(){
+        return ResponseEntity.ok(commentService.getComments());
     }
 
     @GetMapping("/comments/{commentId}")
-    public CommentDetailResponseDto getComment(@PathVariable Long commentId){
-        return commentService.getComment(commentId);
+    public ResponseEntity<CommentDetailResponseDto> getComment(@PathVariable Long commentId){
+        return ResponseEntity.ok(commentService.getComment(commentId));
     }
 
     @PutMapping("/comments/{commentId}")
-    public CommentUpdateResponseDto updateComment(@PathVariable Long commentId, @RequestBody CommentUpdateRequestDto commentUpdateRequestDto){
-        return commentService.updateComment(commentId, commentUpdateRequestDto);
+    public ResponseEntity<CommentUpdateResponseDto> updateComment(@PathVariable Long commentId, @RequestBody CommentUpdateRequestDto commentUpdateRequestDto){
+        return ResponseEntity.ok(commentService.updateComment(commentId, commentUpdateRequestDto));
     }
     @DeleteMapping("/comments/{commentId}")
     public void deleteComment(@PathVariable Long commentId){

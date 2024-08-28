@@ -7,6 +7,7 @@ import com.sparta.springexpert.dto.todo.response.TodoSaveResponseDto;
 import com.sparta.springexpert.dto.todo.response.TodoUpdateResponseDto;
 import com.sparta.springexpert.service.TodoService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,18 +16,18 @@ public class TodoController {
     private final TodoService todoService;
 
     @PostMapping("/todo")
-    public TodoSaveResponseDto saveTodo(@RequestBody TodoSaveRequestDto todoSaveRequestDto){
-        return todoService.saveTodo(todoSaveRequestDto);
+    public ResponseEntity<TodoSaveResponseDto> saveTodo(@RequestBody TodoSaveRequestDto todoSaveRequestDto){
+        return ResponseEntity.ok(todoService.saveTodo(todoSaveRequestDto));
     }
 
     @GetMapping("/todo/{todoId}")
-    public TodoDetailResponseDto getTodo(@PathVariable Long todoId){
-        return todoService.getTodo(todoId);
+    public ResponseEntity<TodoDetailResponseDto> getTodo(@PathVariable Long todoId){
+        return ResponseEntity.ok(todoService.getTodo(todoId));
     }
 
     @PutMapping("/todo/{todoId}")
-    public TodoUpdateResponseDto updateTodo(@PathVariable Long todoId, @RequestBody TodoUpdateRequestDto todoUpdateRequestDto){
-        return todoService.updateTodo(todoId,todoUpdateRequestDto);
+    public ResponseEntity<TodoUpdateResponseDto> updateTodo(@PathVariable Long todoId, @RequestBody TodoUpdateRequestDto todoUpdateRequestDto){
+        return ResponseEntity.ok(todoService.updateTodo(todoId,todoUpdateRequestDto));
     }
     
 }
