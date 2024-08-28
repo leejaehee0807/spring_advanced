@@ -8,6 +8,9 @@ import com.sparta.springexpert.dto.todo.response.TodoUpdateResponseDto;
 import com.sparta.springexpert.entity.Todo;
 import com.sparta.springexpert.repository.TodoRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,12 +32,22 @@ public class TodoService {
                 savedTodo.getTodoContent());
     }
 
-    public TodoDetailResponseDto getTodo(Long todoId) {
-        Todo todo = todoRepository.findById(todoId).orElseThrow(()->new NullPointerException("조회한 id가 없습니다."));
-        return new TodoDetailResponseDto(
+    public Page<TodoDetailResponseDto> getTodo(int page, int size) {
+        Pageable pageable = PageRequest.of(page - 1, size);
+
+        Page<Todo> todos = todoRepository.findAllByOrderByModifiedAtDesc(pageable);
+
+        return todos.map(todo -> new TodoDetailResponseDto(
                 todo.getId(),
                 todo.getTodoTitle(),
-                todo.getTodoContent());
+                todo.getTodoContent()
+        ));
+
+//        Todo todo = todoRepository.findById(todoId).orElseThrow(()->new NullPointerException("조회한 id가 없습니다."));
+//        return new TodoDetailResponseDto(
+//                todo.getId(),
+//                todo.getTodoTitle(),
+//                todo.getTodoContent());
     }
 
     @Transactional

@@ -7,6 +7,7 @@ import com.sparta.springexpert.dto.todo.response.TodoSaveResponseDto;
 import com.sparta.springexpert.dto.todo.response.TodoUpdateResponseDto;
 import com.sparta.springexpert.service.TodoService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,9 +21,11 @@ public class TodoController {
         return ResponseEntity.ok(todoService.saveTodo(todoSaveRequestDto));
     }
 
-    @GetMapping("/todo/{todoId}")
-    public ResponseEntity<TodoDetailResponseDto> getTodo(@PathVariable Long todoId){
-        return ResponseEntity.ok(todoService.getTodo(todoId));
+    @GetMapping("/todo")
+    public ResponseEntity<Page<TodoDetailResponseDto>> getTodo(
+            @RequestParam(defaultValue = "1", required = false) int page,
+            @RequestParam(defaultValue = "10", required = false) int size){
+        return ResponseEntity.ok(todoService.getTodo(page, size));
     }
 
     @PutMapping("/todo/{todoId}")
