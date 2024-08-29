@@ -67,6 +67,7 @@ public class CommentService {
                 comment.getContent(),
                 comment.getUserName());
     }
+    @Transactional
     public void deleteComment(Long commentId) {
         if (!commentRepository.existsById(commentId)) {
             throw new NullPointerException("댓글이 없습니다.");
