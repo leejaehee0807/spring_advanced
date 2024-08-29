@@ -12,13 +12,15 @@ public class Comment extends Timestamped {
     @Id @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
     private String content;
+    private String userName;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "todo_id")
     private Todo todo;
 
-    public Comment(String content) {
+    public Comment(String content, String userName) {
         this.content = content;
+        this.userName = userName;
     }
     public void update(String content){
         this.content= content;

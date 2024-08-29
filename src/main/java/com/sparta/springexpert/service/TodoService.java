@@ -23,7 +23,10 @@ public class TodoService {
 
     @Transactional
     public TodoSaveResponseDto saveTodo(TodoSaveRequestDto todoSaveRequestDto) {
-        Todo todo = new Todo(todoSaveRequestDto.getTodoTitle(), todoSaveRequestDto.getTodoContent());
+        Todo todo = new Todo(
+                todoSaveRequestDto.getTodoTitle(),
+                todoSaveRequestDto.getTodoContent(),
+                todoSaveRequestDto.getUserName());
         Todo savedTodo = todoRepository.save(todo);
 
         return new TodoSaveResponseDto(
@@ -41,8 +44,8 @@ public class TodoService {
                 todo.getId(),
                 todo.getTodoTitle(),
                 todo.getTodoContent(),
-//                todo.getCreatedAt(),
-//                todo.getModifiedAt()
+                todo.getComments().size(),
+                todo.getUserName()
         ));
 
 //        Todo todo = todoRepository.findById(todoId).orElseThrow(()->new NullPointerException("조회한 id가 없습니다."));

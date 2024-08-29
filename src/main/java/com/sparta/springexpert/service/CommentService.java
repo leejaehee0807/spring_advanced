@@ -25,10 +25,15 @@ public class CommentService {
 
     @Transactional
     public CommentSaveResponseDto saveComment(CommentSaveRequestDto commentSaveRequestDto) {
-        Comment newComment = new Comment(commentSaveRequestDto.getContent());
+        Comment newComment = new Comment(
+                commentSaveRequestDto.getContent(),
+                commentSaveRequestDto.getUserName());
         Comment savedComment = commentRepository.save(newComment);
 
-        return new CommentSaveResponseDto(savedComment.getId(), savedComment.getContent());
+        return new CommentSaveResponseDto(
+                savedComment.getId(),
+                savedComment.getContent(),
+                savedComment.getUserName());
 
     }
 
@@ -38,14 +43,18 @@ public class CommentService {
 
         for (Comment newComment : newComments) {
             commentSimpleResponseDto.add(new CommentSimpleResponseDto(
-                    newComment.getContent()));
+                    newComment.getContent(),
+                    newComment.getUserName()));
         }
         return commentSimpleResponseDto;
     }
 
     public CommentDetailResponseDto getComment(Long commentId) {
         Comment comment = commentRepository.findById(commentId).orElseThrow(()->new NullPointerException("조회한 댓글이 없습니다."));
-        return new CommentDetailResponseDto(comment.getId(),comment.getContent());
+        return new CommentDetailResponseDto(
+                comment.getId(),
+                comment.getContent(),
+                comment.getUserName());
     }
 
     @Transactional
@@ -53,7 +62,10 @@ public class CommentService {
         Comment comment = commentRepository.findById(commentId).orElseThrow(()->new NullPointerException("업데이트할 댓글이 없습니다."));
         comment.update(commentUpdateRequestDto.getContent());
 
-        return new CommentUpdateResponseDto(comment.getId(), comment.getContent());
+        return new CommentUpdateResponseDto(
+                comment.getId(),
+                comment.getContent(),
+                comment.getUserName());
     }
     public void deleteComment(Long commentId) {
         if (!commentRepository.existsById(commentId)) {

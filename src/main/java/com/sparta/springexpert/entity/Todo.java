@@ -18,14 +18,16 @@ public class Todo extends Timestamped {
     private Long id;
     private String todoTitle;
     private String todoContent;
+    private String userName;
 
-    @OneToMany(mappedBy = "Comment", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "todo", cascade = CascadeType.REMOVE)
     private List<Comment> comments = new ArrayList<>();
 
 
-    public Todo (String todoTitle, String todoContent){
+    public Todo (String todoTitle, String todoContent,String userName){
         this.todoTitle = todoTitle;
         this.todoContent = todoContent;
+        this.userName = userName;
     }
     public void update(String todoTitle, String todoContent){
         this.todoTitle=todoTitle;
